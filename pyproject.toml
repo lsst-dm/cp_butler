@@ -1,3 +1,9 @@
 # Pytest configuration required to prevent pytest from looking for
 # configurations in parent directories. Can be empty.
+[project]
+name = "lsst-cp-butler"
+
+[project.entry-points.'butler.cli']
+cp_butler = "lsst.cp.butler.cli:get_cli_subcommands"
+
 [tool.pytest.ini_options]
