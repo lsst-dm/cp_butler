@@ -69,11 +69,6 @@ def calibtool_recertify(repo, collections, dataset_type,
         raise RuntimeError("The new date range is not a subset of the existing date range.")
 
     timespan = existing_timespan.difference(updated_timespan)
-    # print(existing_timespan)
-    # print(updated_timespan)
-    # print("---")
-    # for ts in timespan:
-    #     print(ts)
 
     nDecertified = 0
     with Butler.from_config(repo, writeable=not dry_run) as butler:
@@ -95,7 +90,8 @@ def calibtool_recertify(repo, collections, dataset_type,
         for ds in datasets:
             if ds['calib_timespan'] == existing_timespan:
                 grammar = {True: 'would', False: 'will'}
-                print(f"Dataset {ds['calib_type']} {ds['calib_dataId']} {ds['gen_run']} {grammar[dry_run]} be recertified.")
+                print(f"Dataset {ds['calib_type']} {ds['calib_dataId']} {ds['gen_run']} "
+                      f"{grammar[dry_run]} be recertified.")
                 if not dry_run:
                     for ts in timespan:
                         butler.registry.decertify(ds['calib_collection'],
@@ -116,4 +112,3 @@ def calibtool_recertify(repo, collections, dataset_type,
 
     if nDecertified == 0:
         raise RuntimeError("No datasets were decertified.")
-

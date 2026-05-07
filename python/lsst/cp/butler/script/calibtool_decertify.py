@@ -69,7 +69,14 @@ def calibtool_decertify(repo, collections, dataset_type, begin_date, end_date, d
 
         datasets = _probe(butler, collections, dataset_type)
         if verbose:
-            print(datasets)
+            for ds in datasets:
+                print(
+                    ds["calib_type"],
+                    ds["gen_run"],
+                    ds["calib_collection"],
+                    ds["calib_dataId"],
+                    ds["calib_timespan"]
+                )
 
         for ds in datasets:
             if ds['calib_timespan'] == timespan:
@@ -82,6 +89,14 @@ def calibtool_decertify(repo, collections, dataset_type, begin_date, end_date, d
                     nDecertified += 1
         if verbose and not dry_run:
             datasets = _probe(butler, collections, dataset_type)
-            print(datasets)
+            for ds in datasets:
+                print(
+                    ds["calib_type"],
+                    ds["gen_run"],
+                    ds["calib_collection"],
+                    ds["calib_dataId"],
+                    ds["calib_timespan"]
+                )
+
     if nDecertified == 0:
         raise RuntimeError("No datasets were decertified.")
