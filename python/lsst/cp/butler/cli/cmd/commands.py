@@ -93,14 +93,6 @@ def probe(*args, **kwargs):
         "If true, do not modify the butler repository."
     ),
 )
-@click.option(
-    "--verbose",
-    type=bool,
-    default=False,
-    help=(
-        "If true, print status updates."
-    ),
-)
 def decertify(*args, **kwargs):
     """Decertify a calibration from a calibration collection."""
     script.calibtool_decertify(*args, **kwargs)
@@ -159,14 +151,6 @@ def decertify(*args, **kwargs):
     default=True,
     help=(
         "If true, do not modify the butler repository."
-    ),
-)
-@click.option(
-    "--verbose",
-    type=bool,
-    default=False,
-    help=(
-        "If true, print status updates."
     ),
 )
 def recertify(*args, **kwargs):

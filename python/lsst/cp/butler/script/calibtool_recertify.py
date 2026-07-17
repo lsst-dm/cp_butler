@@ -21,6 +21,7 @@
 
 __all__ = ["calibtool_recertify"]
 
+import logging
 
 from lsst.daf.butler import Butler, CollectionType
 from ..utils import _probe, _create_timespan
@@ -29,7 +30,7 @@ from ..utils import _probe, _create_timespan
 def calibtool_recertify(repo, collections, dataset_type,
                         begin_date, end_date,
                         new_begin_date, new_end_date,
-                        dry_run, verbose):
+                        dry_run):
     """Recertify a calibration from the specified collection by changing
     the validity date range.
 
@@ -55,9 +56,8 @@ def calibtool_recertify(repo, collections, dataset_type,
         recertify.
     dry_run : `bool`
         If false, do not change theo database.
-    verbose : `bool`
-        If true, print before and after datasets.
     """
+    log = logging.getLogger(__name__)
     if len(dataset_type) == 0:
         raise RuntimeError("A dataset_type must be specified for decertification.")
     if len(collections) != 1:
@@ -85,38 +85,18 @@ def calibtool_recertify(repo, collections, dataset_type,
             raise RuntimeError("For safety, only CALIBRATION type collections may be specified.")
 
         datasets = _probe(butler, collections, dataset_type)
-        if verbose or True:
-            for ds in datasets:
-                print(
-                    ds["calib_type"],
-                    ds["gen_run"],
-                    ds["calib_collection"],
-                    ds["calib_dataId"],
-                    ds["calib_timespan"]
-                )
 
         for ds in datasets:
             if ds['calib_timespan'] == existing_timespan:
                 grammar = {True: 'would', False: 'will'}
-                print(f"Dataset {ds['calib_type']} {ds['calib_dataId']} {ds['gen_run']} "
-                      f"{grammar[dry_run]} be recertified.")
+                log.info(f"Dataset {ds['calib_type']} {ds['calib_dataId']} {ds['gen_run']} "
+                         f"{grammar[dry_run]} be recertified.")
                 if not dry_run:
                     for ts in timespan:
                         butler.registry.decertify(ds['calib_collection'],
                                                   ds['calib_type'],
                                                   ts)
                     nDecertified += 1
-
-        if verbose and not dry_run:
-            datasets = _probe(butler, collections, dataset_type)
-            for ds in datasets:
-                print(
-                    ds["calib_type"],
-                    ds["gen_run"],
-                    ds["calib_collection"],
-                    ds["calib_dataId"],
-                    ds["calib_timespan"]
-                )
 
     if nDecertified == 0:
         raise RuntimeError("No datasets were decertified.")
