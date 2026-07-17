@@ -24,13 +24,10 @@ import click
 from lsst.daf.butler.cli.opt import (
     collections_option,
     dataset_type_option,
-    #    destination_argument,
     repo_argument,
-    # where_option,
 )
 
 from lsst.daf.butler.cli.utils import ButlerCommand
-# , MWPath
 
 from ... import script
 
@@ -70,7 +67,6 @@ def probe(*args, **kwargs):
     )
 )
 @collections_option()
-# @where_option()
 @click.option(
     "--begin-date",
     type=str,
