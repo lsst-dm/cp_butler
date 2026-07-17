@@ -347,6 +347,20 @@ class CommandLineTests(lsst.utils.tests.TestCase):
         )
         self.assertEqual(result_decert.exit_code, 1)
 
+        # Wildcard collections
+        result_decert = self.runner.invoke(
+            cli,
+            [
+                "calibtool", "decertify", self.repo_path.name,
+                "--collections", "testCam/calib/bias.*",
+                "--dataset-type", "bias",
+                "--begin-date", "2020-01-01T00:00:00",
+                "--end-date", "2021-01-01T00:00:00",
+                "--dry-run", "False"
+            ],
+        )
+        self.assertEqual(result_decert.exit_code, 1)
+
         # Missing date
         result_decert = self.runner.invoke(
             cli,
@@ -477,6 +491,22 @@ class CommandLineTests(lsst.utils.tests.TestCase):
             [
                 "calibtool", "recertify", self.repo_path.name,
                 "--collections", "testCam/calib/bias.01,testCam/calib/bias.02",
+                "--dataset-type", "bias",
+                "--begin-date", "2020-01-01T00:00:00",
+                "--end-date", "2021-01-01T00:00:00",
+                "--new-begin-date", "2020-02-02T00:00:00",
+                "--new-end-date", "2020-10-01T00:00:00",
+                "--dry-run", "False"
+            ],
+        )
+        self.assertEqual(result_recert.exit_code, 1)
+
+        # Wildcard in collections
+        result_recert = self.runner.invoke(
+            cli,
+            [
+                "calibtool", "recertify", self.repo_path.name,
+                "--collections", "testCam/calib/bias.*",
                 "--dataset-type", "bias",
                 "--begin-date", "2020-01-01T00:00:00",
                 "--end-date", "2021-01-01T00:00:00",
