@@ -21,10 +21,9 @@
 
 __all__ = ["calibtool_decertify"]
 
-from astropy.time import Time
 
-from lsst.daf.butler import Butler, Timespan, CollectionType
-from ..utils import _probe
+from lsst.daf.butler import Butler, CollectionType
+from ..utils import _probe, _create_timespan
 
 
 def calibtool_decertify(repo, collections, dataset_type, begin_date, end_date, dry_run, verbose):
@@ -37,33 +36,28 @@ def calibtool_decertify(repo, collections, dataset_type, begin_date, end_date, d
     collections : `tuple` [`str`]
         List of collections to search through.
     dataset_type : `tuple` [`str`]
-        List of dataset_types to decertify.
+        List of dataset types to decertify.
     begin_date : `str`
+        The ISO-8601 datetime (TAI) of the beginning of the
+        calibration to decertify.
     end_date : `str`
+        The ISO-8601 datetime (TAI) of the end of the calibration to
+        decertify.
     dry_run : `bool`
         If false, do not change theo database.
     verbose : `bool`
         If true, print before and after datasets.
     """
-    time_start = None
-    time_end = None
-
     if len(dataset_type) == 0:
         raise RuntimeError("A dataset_type must be specified for decertification.")
     if len(collections) != 1:
         raise RuntimeError("For safety, only one collection may be specified at a time.")
 
-    if begin_date is not None:
-        time_start = Time(begin_date, scale="tai", format="isot")
-    if end_date is not None:
-        time_end = Time(end_date, scale="tai", format="isot")
-    if time_start is None and time_end is None:
-        raise RuntimeError("Cannot continue with no valid dates.")
-    timespan = Timespan(time_start, time_end)
+    timespan = _create_timespan(begin_date, end_date)
 
     nDecertified = 0
     with Butler.from_config(repo, writeable=not dry_run) as butler:
-        collection_type = butler.registry.getCollectionType(collections[0])
+        collection_type = butler.collections.get_info(collections[0]).type
         if collection_type != CollectionType.CALIBRATION:
             raise RuntimeError("For safety, only CALIBRATION type collections may be specified.")
 

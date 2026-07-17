@@ -37,15 +37,13 @@ def calibtool_probe(repo, collections, dataset_type):
         Comma separated list of collections to examine.
     dataset_type : `list` [`str`]
         List of dataset_types to restrict the results to.
+
+    Returns
+    -------
+    datasets : `astropy.table.Table`
+        Table containing all matching calibrations.
     """
     with Butler.from_config(repo, writeable=False) as butler:
         datasets = _probe(butler, collections, dataset_type)
 
-    for ds in datasets:
-        print(
-            ds["calib_type"],
-            ds["gen_run"],
-            ds["calib_collection"],
-            ds["calib_dataId"],
-            ds["calib_timespan"]
-        )
+    return datasets

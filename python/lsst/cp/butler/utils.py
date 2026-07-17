@@ -21,6 +21,11 @@
 
 __all__ = []
 
+from astropy.table import Table
+from astropy.time import Time
+
+from lsst.daf.butler import Timespan
+
 
 def _probe(butler, collections, dataset_type):
     """Extract useful information about the calibrations in the specified
@@ -37,8 +42,8 @@ def _probe(butler, collections, dataset_type):
 
     Returns
     -------
-    datasets : `list` [`dict` [`str` : `str`]]
-        List of matching datasets, along with their calibration
+    table : `astropy.table.Table`
+        Table of matching datasets, along with their calibration
         association information.
     """
     datasets = []
@@ -57,4 +62,39 @@ def _probe(butler, collections, dataset_type):
                     'calib_timespan': assoc.timespan
                 }
                 datasets.append(result)
-    return datasets
+    table = Table(datasets)
+    table.sort(["calib_type", "gen_run", "calib_collection", "calib_dataId"])
+
+    return table
+
+
+def _create_timespan(begin_date, end_date):
+    """Check input dates and generate a timespan.
+
+    Parameters
+    ----------
+    begin_date : `str`
+        The ISO-8601 datetime (TAI) of the beginning of the timespan.
+    end_date : `str`
+        The ISO-8601 datetime (TAI) of the end of the timespan.
+
+    Returns
+    -------
+    timespan : `lsst.daf.butler.Timespan`
+        The timespan requested.
+
+    Raises
+    ------
+    RuntimeError
+        Raised if the timespan cannot be constructed.
+    """
+    time_start = None
+    time_end = None
+
+    if begin_date is not None:
+        time_start = Time(begin_date, scale="tai", format="isot")
+    if end_date is not None:
+        time_end = Time(end_date, scale="tai", format="isot")
+    if time_start is None and time_end is None:
+        raise RuntimeError("Cannot continue with no valid dates.")
+    return Timespan(time_start, time_end)

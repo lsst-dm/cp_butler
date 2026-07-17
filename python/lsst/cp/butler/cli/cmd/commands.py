@@ -54,7 +54,9 @@ def calibtool():
 @collections_option()
 def probe(*args, **kwargs):
     """Print information about the calibrations in a given collection."""
-    script.calibtool_probe(*args, **kwargs)
+    datasets = script.calibtool_probe(*args, **kwargs)
+    if datasets:
+        datasets.pprint_all(align="<")
 
 
 @calibtool.command(
