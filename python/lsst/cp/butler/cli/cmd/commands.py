@@ -176,39 +176,3 @@ def decertify(*args, **kwargs):
 def recertify(*args, **kwargs):
     """Recertify a calibration from a calibration collection."""
     script.calibtool_recertify(*args, **kwargs)
-
-
-# @calibtool.command(
-#     short_help=(
-#         "Generate fingerprint.yaml for a given calibration collection."
-#     ),
-#     cls=ButlerCommand,
-# )
-# @repo_argument(required=True)
-# @destination_argument(
-#     required=True,
-#     help="DESTINATION is the location of the output file.",
-#     type=MWPath(file_okay=True, dir_okay=False, writable=True),
-# )
-# @collections_option()
-# def fingerprint(*args, **kwargs):
-#     """Generate a fingerprint file from a calibration collection."""
-#     script.calibtool_fingerprint(*args, **kwargs)
-
-
-# @calibtool.command(
-#     short_help="Verify fingerprint.yaml for a given calibration collection.",
-#     cls=ButlerCommand,
-# )
-# @repo_argument(required=True)
-#     required=True,
-#     help=(
-#         "DESTINATION is the location of the input file (CZW: ???) "
-#         "Look at python/lsst/daf/butler/cli/cmd/commands.py#L100"
-#     ),
-#     type=MWPath(file_okay=True, dir_okay=False, writable=False),
-# )
-# @collections_option()
-# def authenticate(*args, **kwargs):
-#     """Authenticate that the repository matches the fingerprint file."""
-#     script.calibtool_authenticate(*args, **kwargs)
