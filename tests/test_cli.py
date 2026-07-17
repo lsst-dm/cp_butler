@@ -141,16 +141,20 @@ class CommandLineTests(lsst.utils.tests.TestCase):
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(
             result.stdout,
-            "bias testCam/calib/biasGen testCam/calib/bias.00 {instrument: 'testCameraSC', detector: 10} "
-            "(-∞, 2020-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.01 {instrument: 'testCameraSC', detector: 10} "
-            "[2020-01-01T00:00:00, 2021-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.02 {instrument: 'testCameraSC', detector: 10} "
-            "[2021-01-01T00:00:00, 2022-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.03 {instrument: 'testCameraSC', detector: 10} "
-            "[2022-01-01T00:00:00, 2023-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.04 {instrument: 'testCameraSC', detector: 10} "
-            "[2023-01-01T00:00:00, ∞)\n"
+            "calib_type        gen_run           calib_collection                  "
+            "calib_dataId                              calib_timespan              \n"
+            "---------- --------------------- --------------------- "
+            "------------------------------------------ ------------------------------------------\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.00 "
+            "{instrument: 'testCameraSC', detector: 10} (-∞, 2020-01-01T00:00:00)                 \n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.01 "
+            "{instrument: 'testCameraSC', detector: 10} [2020-01-01T00:00:00, 2021-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.02 "
+            "{instrument: 'testCameraSC', detector: 10} [2021-01-01T00:00:00, 2022-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.03 "
+            "{instrument: 'testCameraSC', detector: 10} [2022-01-01T00:00:00, 2023-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.04 "
+            "{instrument: 'testCameraSC', detector: 10} [2023-01-01T00:00:00, ∞)                  \n"
         )
 
     # Decertify tests
@@ -160,16 +164,20 @@ class CommandLineTests(lsst.utils.tests.TestCase):
         self.assertEqual(result_before.exit_code, 0)
         self.assertEqual(
             result_before.stdout,
-            "bias testCam/calib/biasGen testCam/calib/bias.00 {instrument: 'testCameraSC', detector: 10} "
-            "(-∞, 2020-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.01 {instrument: 'testCameraSC', detector: 10} "
-            "[2020-01-01T00:00:00, 2021-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.02 {instrument: 'testCameraSC', detector: 10} "
-            "[2021-01-01T00:00:00, 2022-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.03 {instrument: 'testCameraSC', detector: 10} "
-            "[2022-01-01T00:00:00, 2023-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.04 {instrument: 'testCameraSC', detector: 10} "
-            "[2023-01-01T00:00:00, ∞)\n"
+            "calib_type        gen_run           calib_collection                  "
+            "calib_dataId                              calib_timespan              \n"
+            "---------- --------------------- --------------------- "
+            "------------------------------------------ ------------------------------------------\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.00 "
+            "{instrument: 'testCameraSC', detector: 10} (-∞, 2020-01-01T00:00:00)                 \n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.01 "
+            "{instrument: 'testCameraSC', detector: 10} [2020-01-01T00:00:00, 2021-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.02 "
+            "{instrument: 'testCameraSC', detector: 10} [2021-01-01T00:00:00, 2022-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.03 "
+            "{instrument: 'testCameraSC', detector: 10} [2022-01-01T00:00:00, 2023-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.04 "
+            "{instrument: 'testCameraSC', detector: 10} [2023-01-01T00:00:00, ∞)                  \n"
         )
 
         result_decert = self.runner.invoke(
@@ -190,14 +198,18 @@ class CommandLineTests(lsst.utils.tests.TestCase):
         self.assertEqual(result_after.exit_code, 0)
         self.assertEqual(
             result_after.stdout,
-            "bias testCam/calib/biasGen testCam/calib/bias.00 {instrument: 'testCameraSC', detector: 10} "
-            "(-∞, 2020-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.02 {instrument: 'testCameraSC', detector: 10} "
-            "[2021-01-01T00:00:00, 2022-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.03 {instrument: 'testCameraSC', detector: 10} "
-            "[2022-01-01T00:00:00, 2023-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.04 {instrument: 'testCameraSC', detector: 10} "
-            "[2023-01-01T00:00:00, ∞)\n"
+            "calib_type        gen_run           calib_collection                  "
+            "calib_dataId                              calib_timespan              \n"
+            "---------- --------------------- --------------------- "
+            "------------------------------------------ ------------------------------------------\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.00 "
+            "{instrument: 'testCameraSC', detector: 10} (-∞, 2020-01-01T00:00:00)                 \n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.02 "
+            "{instrument: 'testCameraSC', detector: 10} [2021-01-01T00:00:00, 2022-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.03 "
+            "{instrument: 'testCameraSC', detector: 10} [2022-01-01T00:00:00, 2023-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.04 "
+            "{instrument: 'testCameraSC', detector: 10} [2023-01-01T00:00:00, ∞)                  \n"
         )
 
     def test_decertify_inf_future(self):
@@ -206,16 +218,20 @@ class CommandLineTests(lsst.utils.tests.TestCase):
         self.assertEqual(result_before.exit_code, 0)
         self.assertEqual(
             result_before.stdout,
-            "bias testCam/calib/biasGen testCam/calib/bias.00 {instrument: 'testCameraSC', detector: 10} "
-            "(-∞, 2020-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.01 {instrument: 'testCameraSC', detector: 10} "
-            "[2020-01-01T00:00:00, 2021-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.02 {instrument: 'testCameraSC', detector: 10} "
-            "[2021-01-01T00:00:00, 2022-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.03 {instrument: 'testCameraSC', detector: 10} "
-            "[2022-01-01T00:00:00, 2023-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.04 {instrument: 'testCameraSC', detector: 10} "
-            "[2023-01-01T00:00:00, ∞)\n"
+            "calib_type        gen_run           calib_collection                  "
+            "calib_dataId                              calib_timespan              \n"
+            "---------- --------------------- --------------------- "
+            "------------------------------------------ ------------------------------------------\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.00 "
+            "{instrument: 'testCameraSC', detector: 10} (-∞, 2020-01-01T00:00:00)                 \n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.01 "
+            "{instrument: 'testCameraSC', detector: 10} [2020-01-01T00:00:00, 2021-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.02 "
+            "{instrument: 'testCameraSC', detector: 10} [2021-01-01T00:00:00, 2022-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.03 "
+            "{instrument: 'testCameraSC', detector: 10} [2022-01-01T00:00:00, 2023-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.04 "
+            "{instrument: 'testCameraSC', detector: 10} [2023-01-01T00:00:00, ∞)                  \n"
         )
 
         result_decert = self.runner.invoke(
@@ -235,14 +251,18 @@ class CommandLineTests(lsst.utils.tests.TestCase):
         self.assertEqual(result_after.exit_code, 0)
         self.assertEqual(
             result_after.stdout,
-            "bias testCam/calib/biasGen testCam/calib/bias.00 {instrument: 'testCameraSC', detector: 10} "
-            "(-∞, 2020-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.01 {instrument: 'testCameraSC', detector: 10} "
-            "[2020-01-01T00:00:00, 2021-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.02 {instrument: 'testCameraSC', detector: 10} "
-            "[2021-01-01T00:00:00, 2022-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.03 {instrument: 'testCameraSC', detector: 10} "
-            "[2022-01-01T00:00:00, 2023-01-01T00:00:00)\n"
+            "calib_type        gen_run           calib_collection                  "
+            "calib_dataId                              calib_timespan              \n"
+            "---------- --------------------- --------------------- "
+            "------------------------------------------ ------------------------------------------\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.00 "
+            "{instrument: 'testCameraSC', detector: 10} (-∞, 2020-01-01T00:00:00)                 \n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.01 "
+            "{instrument: 'testCameraSC', detector: 10} [2020-01-01T00:00:00, 2021-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.02 "
+            "{instrument: 'testCameraSC', detector: 10} [2021-01-01T00:00:00, 2022-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.03 "
+            "{instrument: 'testCameraSC', detector: 10} [2022-01-01T00:00:00, 2023-01-01T00:00:00)\n"
         )
 
     def test_decertify_inf_past(self):
@@ -251,16 +271,20 @@ class CommandLineTests(lsst.utils.tests.TestCase):
         self.assertEqual(result_before.exit_code, 0)
         self.assertEqual(
             result_before.stdout,
-            "bias testCam/calib/biasGen testCam/calib/bias.00 {instrument: 'testCameraSC', detector: 10} "
-            "(-∞, 2020-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.01 {instrument: 'testCameraSC', detector: 10} "
-            "[2020-01-01T00:00:00, 2021-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.02 {instrument: 'testCameraSC', detector: 10} "
-            "[2021-01-01T00:00:00, 2022-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.03 {instrument: 'testCameraSC', detector: 10} "
-            "[2022-01-01T00:00:00, 2023-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.04 {instrument: 'testCameraSC', detector: 10} "
-            "[2023-01-01T00:00:00, ∞)\n"
+            "calib_type        gen_run           calib_collection                  "
+            "calib_dataId                              calib_timespan              \n"
+            "---------- --------------------- --------------------- "
+            "------------------------------------------ ------------------------------------------\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.00 "
+            "{instrument: 'testCameraSC', detector: 10} (-∞, 2020-01-01T00:00:00)                 \n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.01 "
+            "{instrument: 'testCameraSC', detector: 10} [2020-01-01T00:00:00, 2021-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.02 "
+            "{instrument: 'testCameraSC', detector: 10} [2021-01-01T00:00:00, 2022-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.03 "
+            "{instrument: 'testCameraSC', detector: 10} [2022-01-01T00:00:00, 2023-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.04 "
+            "{instrument: 'testCameraSC', detector: 10} [2023-01-01T00:00:00, ∞)                  \n"
         )
 
         result_decert = self.runner.invoke(
@@ -280,14 +304,18 @@ class CommandLineTests(lsst.utils.tests.TestCase):
         self.assertEqual(result_after.exit_code, 0)
         self.assertEqual(
             result_after.stdout,
-            "bias testCam/calib/biasGen testCam/calib/bias.01 {instrument: 'testCameraSC', detector: 10} "
-            "[2020-01-01T00:00:00, 2021-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.02 {instrument: 'testCameraSC', detector: 10} "
-            "[2021-01-01T00:00:00, 2022-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.03 {instrument: 'testCameraSC', detector: 10} "
-            "[2022-01-01T00:00:00, 2023-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.04 {instrument: 'testCameraSC', detector: 10} "
-            "[2023-01-01T00:00:00, ∞)\n"
+            "calib_type        gen_run           calib_collection                  "
+            "calib_dataId                              calib_timespan              \n"
+            "---------- --------------------- --------------------- "
+            "------------------------------------------ ------------------------------------------\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.01 "
+            "{instrument: 'testCameraSC', detector: 10} [2020-01-01T00:00:00, 2021-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.02 "
+            "{instrument: 'testCameraSC', detector: 10} [2021-01-01T00:00:00, 2022-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.03 "
+            "{instrument: 'testCameraSC', detector: 10} [2022-01-01T00:00:00, 2023-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.04 "
+            "{instrument: 'testCameraSC', detector: 10} [2023-01-01T00:00:00, ∞)                  \n"
         )
 
     def test_decertifyExpectedFailures(self):
@@ -352,16 +380,20 @@ class CommandLineTests(lsst.utils.tests.TestCase):
         self.assertEqual(result_before.exit_code, 0)
         self.assertEqual(
             result_before.stdout,
-            "bias testCam/calib/biasGen testCam/calib/bias.00 {instrument: 'testCameraSC', detector: 10} "
-            "(-∞, 2020-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.01 {instrument: 'testCameraSC', detector: 10} "
-            "[2020-01-01T00:00:00, 2021-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.02 {instrument: 'testCameraSC', detector: 10} "
-            "[2021-01-01T00:00:00, 2022-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.03 {instrument: 'testCameraSC', detector: 10} "
-            "[2022-01-01T00:00:00, 2023-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.04 {instrument: 'testCameraSC', detector: 10} "
-            "[2023-01-01T00:00:00, ∞)\n"
+            "calib_type        gen_run           calib_collection                  "
+            "calib_dataId                              calib_timespan              \n"
+            "---------- --------------------- --------------------- "
+            "------------------------------------------ ------------------------------------------\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.00 "
+            "{instrument: 'testCameraSC', detector: 10} (-∞, 2020-01-01T00:00:00)                 \n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.01 "
+            "{instrument: 'testCameraSC', detector: 10} [2020-01-01T00:00:00, 2021-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.02 "
+            "{instrument: 'testCameraSC', detector: 10} [2021-01-01T00:00:00, 2022-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.03 "
+            "{instrument: 'testCameraSC', detector: 10} [2022-01-01T00:00:00, 2023-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.04 "
+            "{instrument: 'testCameraSC', detector: 10} [2023-01-01T00:00:00, ∞)                  \n"
         )
 
         result_recert = self.runner.invoke(
@@ -381,20 +413,23 @@ class CommandLineTests(lsst.utils.tests.TestCase):
 
         result_after = self.runner.invoke(cli, ["calibtool", "probe", self.repo_path.name,
                                                 "--collections", "testCam/calib"])
-        # import pdb; pdb.set_trace()
         self.assertEqual(result_after.exit_code, 0)
         self.assertEqual(
             result_after.stdout,
-            "bias testCam/calib/biasGen testCam/calib/bias.00 {instrument: 'testCameraSC', detector: 10} "
-            "(-∞, 2020-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.01 {instrument: 'testCameraSC', detector: 10} "
-            "[2020-02-02T00:00:00, 2020-10-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.02 {instrument: 'testCameraSC', detector: 10} "
-            "[2021-01-01T00:00:00, 2022-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.03 {instrument: 'testCameraSC', detector: 10} "
-            "[2022-01-01T00:00:00, 2023-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.04 {instrument: 'testCameraSC', detector: 10} "
-            "[2023-01-01T00:00:00, ∞)\n"
+            "calib_type        gen_run           calib_collection                  "
+            "calib_dataId                              calib_timespan              \n"
+            "---------- --------------------- --------------------- "
+            "------------------------------------------ ------------------------------------------\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.00 "
+            "{instrument: 'testCameraSC', detector: 10} (-∞, 2020-01-01T00:00:00)                 \n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.01 "
+            "{instrument: 'testCameraSC', detector: 10} [2020-02-02T00:00:00, 2020-10-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.02 "
+            "{instrument: 'testCameraSC', detector: 10} [2021-01-01T00:00:00, 2022-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.03 "
+            "{instrument: 'testCameraSC', detector: 10} [2022-01-01T00:00:00, 2023-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.04 "
+            "{instrument: 'testCameraSC', detector: 10} [2023-01-01T00:00:00, ∞)                  \n"
         )
 
     # Recertify tests
@@ -404,16 +439,20 @@ class CommandLineTests(lsst.utils.tests.TestCase):
         self.assertEqual(result_before.exit_code, 0)
         self.assertEqual(
             result_before.stdout,
-            "bias testCam/calib/biasGen testCam/calib/bias.00 {instrument: 'testCameraSC', detector: 10} "
-            "(-∞, 2020-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.01 {instrument: 'testCameraSC', detector: 10} "
-            "[2020-01-01T00:00:00, 2021-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.02 {instrument: 'testCameraSC', detector: 10} "
-            "[2021-01-01T00:00:00, 2022-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.03 {instrument: 'testCameraSC', detector: 10} "
-            "[2022-01-01T00:00:00, 2023-01-01T00:00:00)\n"
-            "bias testCam/calib/biasGen testCam/calib/bias.04 {instrument: 'testCameraSC', detector: 10} "
-            "[2023-01-01T00:00:00, ∞)\n"
+            "calib_type        gen_run           calib_collection                  "
+            "calib_dataId                              calib_timespan              \n"
+            "---------- --------------------- --------------------- "
+            "------------------------------------------ ------------------------------------------\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.00 "
+            "{instrument: 'testCameraSC', detector: 10} (-∞, 2020-01-01T00:00:00)                 \n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.01 "
+            "{instrument: 'testCameraSC', detector: 10} [2020-01-01T00:00:00, 2021-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.02 "
+            "{instrument: 'testCameraSC', detector: 10} [2021-01-01T00:00:00, 2022-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.03 "
+            "{instrument: 'testCameraSC', detector: 10} [2022-01-01T00:00:00, 2023-01-01T00:00:00)\n"
+            "bias       testCam/calib/biasGen testCam/calib/bias.04 "
+            "{instrument: 'testCameraSC', detector: 10} [2023-01-01T00:00:00, ∞)                  \n"
         )
 
         # Chained collection
