@@ -66,12 +66,13 @@ def calibtool_decertify(repo, collections, dataset_type, begin_date, end_date, d
         for ds in datasets:
             if ds['calib_timespan'] == timespan:
                 grammar = {True: 'would', False: 'will'}
-                log.info(f"Dataset {ds} {grammar[dry_run]} be decertified.")
+                log.info(f"Dataset  {ds['calib_type']} {ds['calib_dataId']} {ds['gen_run']} "
+                         f"{grammar[dry_run]} be decertified.")
                 if not dry_run:
                     butler.registry.decertify(ds['calib_collection'],
                                               ds['calib_type'],
                                               timespan)
                     nDecertified += 1
 
-    if nDecertified == 0:
+    if nDecertified == 0 and not dry_run:
         raise RuntimeError("No datasets were decertified.")

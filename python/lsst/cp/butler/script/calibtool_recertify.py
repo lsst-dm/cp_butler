@@ -98,5 +98,5 @@ def calibtool_recertify(repo, collections, dataset_type,
                                                   ts)
                     nDecertified += 1
 
-    if nDecertified == 0:
-        raise RuntimeError("No datasets were decertified.")
+    if nDecertified == 0 and not dry_run:
+        raise RuntimeError("No datasets were recertified.")
