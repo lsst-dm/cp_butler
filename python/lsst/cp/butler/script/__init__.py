@@ -22,4 +22,3 @@
 from .calibtool_probe import calibtool_probe
 from .calibtool_decertify import calibtool_decertify
 from .calibtool_recertify import calibtool_recertify
-#from .calibtool_fingerprint import calibtool_fingerprint, calibtool_authenticate
